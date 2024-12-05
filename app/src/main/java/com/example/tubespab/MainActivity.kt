@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
     22523173 - Fath Yusava Arden
     22523295 - Alivah Syiva Dewi
     22523119 - Sekar Kinasih
-    22523100 - Nasywa Raihan
     22523155 - Hasan Abdullah
  */
 
