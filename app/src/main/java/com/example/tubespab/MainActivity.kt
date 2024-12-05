@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Value is: $value")
                 mainText.text = value ?: "No data available"
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
