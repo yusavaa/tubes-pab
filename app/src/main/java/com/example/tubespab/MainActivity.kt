@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        // Inisialisasi TextView dari layout
         mainText = findViewById(R.id.mainText)
 
         // Menghubungkan ke Firebase Realtime Database
