@@ -1,0 +1,17 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State untuk tombol ON -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/purple"/> <!-- Warna ketika aktif (ON) -->
+            <corners android:radius="16dp"/> <!-- Border radius -->
+        </shape>
+    </item>
+
+    <!-- State untuk tombol OFF -->
+    <item android:state_checked="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white"/> <!-- Warna ketika tidak aktif (OFF) -->
+            <corners android:radius="16dp"/> <!-- Border radius -->
+        </shape>
+    </item>
+</selector>
