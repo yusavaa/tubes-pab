@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".isi_artikel">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".HalamanRelative">
+
+        <TextView
+            android:id="@+id/txJudulRelative"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Relative Layout"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txJudulArtikel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txJudulRelative"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="History Android"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txArtikel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txJudulArtikel"
+            android:layout_centerHorizontal="true"
+            android:autoLink="web"
+            android:gravity="center|left"
+            android:padding="20dp"
+            android:text=" Android is a mobile operating system based on a modified version of the Linux kernel and other open-source software,
+designed primarily for touchscreen mobile devices such as smartphones and tablets. Android is the world's most widely
+used computer operating system. As of October 2024, Android has 45% of the global operating system market followed by
+Windows with 26%.
+\n\nAndroid has historically been developed by a consortium of developers known as the Open Handset Alliance, but its
+most widely used version is primarily developed by Google. It was unveiled in November 2007, with the first commercial
+Android device, the HTC Dream, being launched in September 2008.
+\n\nAndroid Inc. was founded in Palo Alto, California, in October 2003 by Andy Rubin, Rich Miner, Nick Sears, and Chris
+White. Rubin described the Android project as having 'tremendous potential in developing smarter mobile devices that are
+        more aware of its owner's location and preferences'. The early intentions of the company were to develop an advanced
+operating system for digital cameras, and this was the basis of its pitch to investors in April 2004. The company then decided
+that the market for cameras was not large enough for its goals, and five months later it had diverted its efforts and was
+pitching Android as a handset operating system that would rival Symbian and Microsoft Windows Mobile."
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/bKembaliRelative"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txArtikel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:onClick="fMain"
+            android:text="Kembali" />
+
+
+
+    </RelativeLayout>
+</ScrollView>
