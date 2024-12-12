@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addShoppingItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp" />
+
+    <EditText
+        android:id="@+id/etItemName"
+        android:layout_width="227dp"
+        android:layout_height="30dp"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        android:layout_marginBottom="15dp"
+        android:inputType="text"
+        android:background="@drawable/edit_text_view"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/etQuantity"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="0dp"
+            android:text="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Spinner
+            android:id="@+id/unitType"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.059"
+            app:layout_constraintStart_toEndOf="@+id/etQuantity"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end">
+
+        <ImageButton
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="add item label"
+            android:src="@drawable/cancel_label_icon" />
+
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="add item label"
+            android:src="@drawable/add_label_icon" />
+
+    </LinearLayout>
+
+</LinearLayout>
