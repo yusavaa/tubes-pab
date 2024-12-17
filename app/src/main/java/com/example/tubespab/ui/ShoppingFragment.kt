@@ -19,7 +19,6 @@ import com.example.tubespab.model.ShopItem
 import com.example.tubespab.repository.CartRepository
 import com.example.tubespab.repository.ShopItemRepository
 import com.example.tubespab.util.AuthController
-import com.example.tubespab.util.NavbarController
 import com.example.tubespab.viewmodel.CartViewModel
 import com.example.tubespab.viewmodel.CartViewModelFactory
 import com.example.tubespab.viewmodel.ShopItemViewModel
@@ -38,23 +37,20 @@ class ShoppingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shopping, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inisialisasi ViewModel
         cartViewModel = ViewModelProvider(this, CartViewModelFactory(CartRepository())).get(CartViewModel::class.java)
         shopItemViewModel = ViewModelProvider(this, ShopItemViewModelFactory(ShopItemRepository())).get(ShopItemViewModel::class.java)
 
-        // Setup RecyclerView
         recyclerView = view.findViewById(R.id.shoppingList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
 
-        shoppingAdapter = ShoppingAdapter(emptyList())
+        shoppingAdapter = cartId?.let { ShoppingAdapter(it, emptyList(), emptyList(), cartViewModel, shopItemViewModel) }!!
         recyclerView.adapter = shoppingAdapter
 
         val searchView: SearchView = view.findViewById(R.id.searchView)
@@ -82,16 +78,16 @@ class ShoppingFragment : Fragment() {
     }
 
     private fun filterShoppingData(query: String) {
-        if (cartId != null) {
-            cartViewModel.getItemByCartId(cartId)
-                .observe(viewLifecycleOwner) { shoppingList ->
-                    val filteredList = shoppingList?.filter { shopItem ->
-                        shopItem.name.contains(query, ignoreCase = true)
-                    }
-                    filteredList?.let {
-                        shoppingAdapter.updateData(it)
-                    }
+        cartId?.let {
+            cartViewModel.getItemByCartId(it).observe(viewLifecycleOwner) { pair ->
+
+                val itemIds = pair?.first ?: emptyList()
+                val shoppingList = pair?.second ?: emptyList()
+                val filteredList = shoppingList.filter { shopItem ->
+                    shopItem.name.contains(query, ignoreCase = true)
                 }
+                shoppingAdapter.updateData(itemIds, filteredList)
+            }
         }
     }
 

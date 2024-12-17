@@ -10,8 +10,12 @@ class CartViewModel(private val cartRepository: CartRepository) : ViewModel() {
         cartRepository.addUserCart(uidUser, email)
     }
 
-    fun getItemByCartId(cartId: String): LiveData<List<ShopItem>> {
+    fun getItemByCartId(cartId: String): LiveData<Pair<List<String>, List<ShopItem>>> {
         return cartRepository.getItemByCartId(cartId)
+    }
+
+    fun removeCartItem(cartId: String, shopItemId: String) {
+        cartRepository.removeCartItem(cartId, shopItemId)
     }
 
     fun addCartItem(cartId: String, shopItemId: String) {

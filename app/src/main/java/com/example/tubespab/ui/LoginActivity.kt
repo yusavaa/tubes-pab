@@ -12,10 +12,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.tubespab.R
 import com.example.tubespab.repository.UserRepository
+import com.example.tubespab.util.AuthController
 import com.example.tubespab.viewmodel.UserViewModel
 import com.example.tubespab.viewmodel.UserViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
+    private val currentUser = AuthController.getCurrentUser()
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory(UserRepository())
     }
@@ -28,6 +30,11 @@ class LoginActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        if (currentUser != null) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         userViewModel.loginStatus.observe(this) { isLogin ->
@@ -47,6 +54,12 @@ class LoginActivity : AppCompatActivity() {
                 etEmail.text.toString(),
                 etPassword.text.toString(),
             )
+        }
+
+        val btnToRegis: Button = findViewById(R.id.btnToRegis)
+        btnToRegis.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 }

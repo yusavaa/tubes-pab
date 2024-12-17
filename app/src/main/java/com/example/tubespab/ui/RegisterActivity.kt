@@ -1,5 +1,6 @@
 package com.example.tubespab.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -68,6 +69,12 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        val btnToLogin: Button = findViewById(R.id.btnToLogin)
+        btnToLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 }

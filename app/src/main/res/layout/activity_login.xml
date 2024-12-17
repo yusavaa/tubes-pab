@@ -1,100 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#7B3B8F"
-    android:gravity="center">
+    android:background="@color/purple">
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:contentDescription="App Logo"
-        android:src="@drawable/login_icon" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/login_icon"
+        app:layout_constraintBottom_toBottomOf="@id/guideline5"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2" />
 
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginVertical="16dp"
-        android:paddingVertical="30dp"
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="13dp"
         android:background="@drawable/auth_background_view"
-        android:clipToPadding="false"
-        android:elevation="4dp"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="@id/tvLabel"
+        app:layout_constraintEnd_toEndOf="@id/guideline4"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/guideline5" />
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:paddingHorizontal="20dp"
-            android:background="@drawable/auth_input_view"
-            android:textColorHint="@color/purple"
-            android:hint="Email"
-            android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/auth_input_view"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingHorizontal="20dp"
+        android:textColorHint="@color/purple"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline7"
+        app:layout_constraintStart_toStartOf="@id/guideline6"
+        app:layout_constraintTop_toTopOf="@id/view" />
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:paddingHorizontal="20dp"
-            android:background="@drawable/auth_input_view"
-            android:textColorHint="@color/purple"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/auth_input_view"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:textColorHint="@color/purple"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline7"
+        app:layout_constraintStart_toStartOf="@id/guideline6"
+        app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
-        <TextView
-            android:id="@+id/tvlogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:layout_gravity="end"
-            android:text="Forgot password?"
-            android:textColor="@color/purple"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnForgotPw"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:text="Forgot password?"
+        android:textColor="@color/purple"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guideline7"
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#7B3B8F"
-            android:text="Login"
-            android:textColor="@color/white"
-            android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#7B3B8F"
+        android:text="Login"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/guideline7"
+        app:layout_constraintStart_toStartOf="@id/guideline6"
+        app:layout_constraintTop_toBottomOf="@id/btnForgotPw" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center">
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="16dp"
+        android:text="Don’t have an account?"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/guideline6"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
-            <TextView
-                android:id="@+id/tvLoginPrompt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:text="Don’t have an account?"
-                android:textColor="@color/black" />
+    <Button
+        android:id="@+id/btnToRegis"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:text="Create an account"
+        android:textColor="@color/purple"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/guideline7"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
-            <TextView
-                android:id="@+id/tvLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create an account"
-                android:textColor="@color/purple"
-                android:textStyle="bold"
-                android:layout_marginStart="4dp" />
-        </LinearLayout>
-    </LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.20" />
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

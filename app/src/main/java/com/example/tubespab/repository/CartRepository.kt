@@ -29,13 +29,14 @@ class CartRepository {
             }
     }
 
-    fun getItemByCartId(cartId: String): LiveData<List<ShopItem>> {
-        val liveData = MutableLiveData<List<ShopItem>>()
+    fun getItemByCartId(cartId: String): LiveData<Pair<List<String>, List<ShopItem>>> {
+        val liveData = MutableLiveData<Pair<List<String>, List<ShopItem>>>()
 
         cartRef.child(cartId).child("cartItem")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val itemIds = snapshot.children.mapNotNull { it.key }
+                    Log.d("Debug", "Item IDs from inventory: ${itemIds.size}, $itemIds")
                     val items = mutableListOf<ShopItem>()
 
                     for (itemId in itemIds) {
@@ -44,23 +45,28 @@ class CartRepository {
                                 val item = itemSnapshot.getValue(ShopItem::class.java)
                                 item?.let { items.add(it) }
                                 if (items.size == itemIds.size) {
-                                    liveData.value = items
+                                    // Mengirimkan itemIds bersama items sebagai Pair
+                                    liveData.value = Pair(itemIds, items)
                                 }
                             }
                             override fun onCancelled(error: DatabaseError) {
-                                liveData.value = emptyList()
+                                liveData.value = Pair(emptyList(), emptyList())
                             }
                         })
                     }
                     if (itemIds.isEmpty()) {
-                        liveData.value = emptyList()
+                        liveData.value = Pair(emptyList(), emptyList())
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    liveData.value = emptyList()
+                    liveData.value = Pair(emptyList(), emptyList())
                 }
             })
         return liveData
+    }
+
+    fun removeCartItem(cartId: String, shopItemId: String) {
+        cartRef.child(cartId).child("cartItem").child(shopItemId).removeValue()
     }
 
     fun addCartItem(cartId: String, shopItemId: String) {
