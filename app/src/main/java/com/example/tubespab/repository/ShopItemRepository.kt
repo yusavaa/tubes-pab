@@ -7,6 +7,10 @@ class ShopItemRepository {
     private val database = FirebaseDatabase.getInstance()
     private val myRef = database.getReference("shopItem")
 
+    fun removeShopItem(shopItemId: String) {
+        myRef.child(shopItemId).removeValue()
+    }
+
     fun addShopItem(shopItem: ShopItem, callback: (String) -> Unit) {
         val shopItemId = "shopItem" + myRef.push().key
         myRef.child(shopItemId).setValue(shopItem).addOnSuccessListener {

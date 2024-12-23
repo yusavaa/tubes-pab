@@ -8,13 +8,15 @@
     android:layout_height="wrap_content"
     android:paddingHorizontal="20dp"
     android:paddingVertical="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tvItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Item name"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="5dp" />
@@ -27,6 +29,7 @@
         android:paddingHorizontal="10dp"
         android:layout_marginBottom="15dp"
         android:inputType="text"
+        android:textColor="@color/black"
         android:background="@drawable/edit_text_view"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quantity"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +61,7 @@
             android:maxLength="3"
             android:paddingHorizontal="0dp"
             android:paddingVertical="0dp"
+            android:textColor="@color/black"
             android:text="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

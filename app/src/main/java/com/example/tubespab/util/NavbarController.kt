@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tubespab.ui.InventoryFragment
 import com.example.tubespab.R
 import com.example.tubespab.ui.HomeFragment
+import com.example.tubespab.ui.ProfileFragment
 import com.example.tubespab.ui.ShoppingFragment
 
 object NavbarController {
@@ -31,6 +32,13 @@ object NavbarController {
                     .addToBackStack(null)
                     .commit()
             }
+            "profile" -> {
+                val fragment = ProfileFragment()
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
 
@@ -38,6 +46,7 @@ object NavbarController {
         val buttonHome: Button = activity.findViewById(R.id.homeButton)
         val buttonInventory: Button = activity.findViewById(R.id.inventoryButton)
         val buttonShopping: Button = activity.findViewById(R.id.shoppingButton)
+        val buttonProfile: Button = activity.findViewById(R.id.profileButton)
 
         buttonHome.setOnClickListener {
             handleNavigation(activity, "home")
@@ -49,6 +58,10 @@ object NavbarController {
 
         buttonShopping.setOnClickListener {
             handleNavigation(activity, "shopping")
+        }
+
+        buttonProfile.setOnClickListener {
+            handleNavigation(activity, "profile")
         }
     }
 }
