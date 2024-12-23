@@ -93,7 +93,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/ivStrak"
@@ -112,6 +113,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="10dp"
                 android:text="0"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/ivStrak"
@@ -123,6 +125,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginStart="10dp"
                 android:text="Days Streak"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ivStrak"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -142,7 +145,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/ivPoint"
@@ -161,6 +165,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="10dp"
                 android:text="0"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/ivPoint"
@@ -172,6 +177,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginStart="10dp"
                 android:text="Point"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ivPoint"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -191,7 +197,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/ivBadge"
@@ -210,6 +217,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="10dp"
                 android:text="0"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/ivBadge"
@@ -221,6 +229,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginStart="10dp"
                 android:text="Badge"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ivBadge"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -240,7 +249,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/ivXp"
@@ -259,6 +269,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="10dp"
                 android:text="0"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/ivXp"
@@ -270,6 +281,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginStart="10dp"
                 android:text="Total XP"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ivXp"
                 app:layout_constraintBottom_toBottomOf="parent"/>

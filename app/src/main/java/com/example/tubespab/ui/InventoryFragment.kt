@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tubespab.R
 import com.example.tubespab.adapter.InventoryAdapter
 import com.example.tubespab.repository.InventoryRepository
+import com.example.tubespab.repository.ItemRepository
 import com.example.tubespab.util.AuthController
 import com.example.tubespab.viewmodel.InventoryViewModel
 import com.example.tubespab.viewmodel.InventoryViewModelFactory
+import com.example.tubespab.viewmodel.ItemViewModel
+import com.example.tubespab.viewmodel.ItemViewModelFactory
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -23,8 +26,12 @@ class InventoryFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var inventoryAdapter: InventoryAdapter
+    private val inventoryId = AuthController.getCurrentUserUid()
     private val inventoryViewModel: InventoryViewModel by viewModels {
         InventoryViewModelFactory(InventoryRepository())
+    }
+    private val itemViewModel: ItemViewModel by viewModels {
+        ItemViewModelFactory(ItemRepository())
     }
 
     private var currentCategory: String = "fridgeItem"
@@ -43,7 +50,15 @@ class InventoryFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
 
-        inventoryAdapter = InventoryAdapter(emptyList())
+        inventoryAdapter = inventoryId?.let {
+            InventoryAdapter(
+                it,
+                emptyList(),
+                emptyList(),
+                inventoryViewModel,
+                itemViewModel,
+                currentCategory)
+        }!!
         recyclerView.adapter = inventoryAdapter
 
         val searchView: SearchView = view.findViewById(R.id.searchView)
@@ -78,22 +93,21 @@ class InventoryFragment : Fragment() {
 
         val fab: FloatingActionButton = view.findViewById(R.id.fabAdd)
         fab.setOnClickListener {
-            val intent = Intent(requireContext(), LoginActivity::class.java)
+            val intent = Intent(requireContext(), AddItemActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun filterInventoryData(query: String) {
-        val inventoryId = AuthController.getCurrentUserUid()
-        if (inventoryId != null) {
-            inventoryViewModel.getSegmentItems(inventoryId, currentCategory)
-                .observe(viewLifecycleOwner) { inventoryList ->
-                    val filteredList = inventoryList?.filter { item ->
+        inventoryId?.let {
+            inventoryViewModel.getSegmentItems(it, currentCategory)
+                .observe(viewLifecycleOwner) { pair ->
+                    val itemIds = pair?.first ?: emptyList()
+                    val inventoryList = pair?.second ?: emptyList()
+                    val filteredList = inventoryList.filter { item ->
                         item.name.contains(query, ignoreCase = true)
                     }
-                    filteredList?.let {
-                        inventoryAdapter.updateData(it)
-                    }
+                    inventoryAdapter.updateData(itemIds, filteredList, currentCategory)
                 }
         }
     }

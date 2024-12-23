@@ -1,19 +1,16 @@
 package com.example.tubespab.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.tubespab.R
+import com.example.tubespab.util.AuthController
 import com.example.tubespab.util.NavbarController
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import com.example.tubespab.worker.ExpiryNotificationWorker
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
+import java.util.concurrent.TimeUnit
 
 /*
     Anggota:
@@ -24,6 +21,7 @@ import com.google.firebase.database.getValue
  */
 
 class MainActivity : AppCompatActivity() {
+    private val userId = AuthController.getCurrentUserUid()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,7 +32,15 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.fragment_container, fragment)
                 .commit()
         }
+        scheduleNotificationWorker()
 
         NavbarController.navAction(this)
+    }
+
+    private fun scheduleNotificationWorker() {
+        val workRequest = PeriodicWorkRequestBuilder<ExpiryNotificationWorker>(1, TimeUnit.DAYS) // Jalankan setiap hari
+            .build()
+
+        WorkManager.getInstance(applicationContext).enqueue(workRequest)
     }
 }

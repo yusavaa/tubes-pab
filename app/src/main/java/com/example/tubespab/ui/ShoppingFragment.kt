@@ -1,6 +1,7 @@
 package com.example.tubespab.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,7 @@ class ShoppingFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
 
-        shoppingAdapter = cartId?.let { ShoppingAdapter(it, emptyList(), emptyList(), cartViewModel, shopItemViewModel) }!!
+        shoppingAdapter = cartId?.let { ShoppingAdapter(it, emptyList(), emptyList(), emptyList(), cartViewModel, shopItemViewModel) }!!
         recyclerView.adapter = shoppingAdapter
 
         val searchView: SearchView = view.findViewById(R.id.searchView)
@@ -75,6 +76,19 @@ class ShoppingFragment : Fragment() {
         btnShowInput.setOnClickListener {
             showInputDialog()
         }
+
+        val btnMoveTo: ImageButton = view.findViewById(R.id.btnMoveTo)
+        btnMoveTo.setOnClickListener {
+            cartId?.let {
+                cartViewModel.getItemByCartId(it).observe(viewLifecycleOwner) { pair ->
+                    val insideCartItems = pair?.second?.first ?: emptyList()
+
+                    insideCartItems.forEach { shopItem ->
+                        Log.d("ShoppingFragment", "Item in Inside Cart: ${shopItem.name}")
+                    }
+                }
+            }
+        }
     }
 
     private fun filterShoppingData(query: String) {
@@ -82,14 +96,25 @@ class ShoppingFragment : Fragment() {
             cartViewModel.getItemByCartId(it).observe(viewLifecycleOwner) { pair ->
 
                 val itemIds = pair?.first ?: emptyList()
-                val shoppingList = pair?.second ?: emptyList()
-                val filteredList = shoppingList.filter { shopItem ->
+                val insideCartItems = pair?.second?.first ?: emptyList()
+                val outsideCartItems = pair?.second?.second ?: emptyList()
+
+                // Memfilter item berdasarkan nama pada insideCartItems
+                val filteredInsideCartItems = insideCartItems.filter { shopItem ->
                     shopItem.name.contains(query, ignoreCase = true)
                 }
-                shoppingAdapter.updateData(itemIds, filteredList)
+
+                // Memfilter item berdasarkan nama pada outsideCartItems
+                val filteredOutsideCartItems = outsideCartItems.filter { shopItem ->
+                    shopItem.name.contains(query, ignoreCase = true)
+                }
+
+                // Anda bisa memutuskan apakah ingin mengupdate semua item atau hanya yang di dalam cart
+                shoppingAdapter.updateData(itemIds, filteredInsideCartItems, filteredOutsideCartItems)
             }
         }
     }
+
 
     private fun showInputDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.add_shopping_item, null)
@@ -119,8 +144,14 @@ class ShoppingFragment : Fragment() {
             shopItemViewModel.addShopItem(shopItem) { shopItemId ->
                 if (cartId != null) {
                     cartViewModel.addCartItem(cartId, shopItemId)
+                    bottomSheetDialog.dismiss()
                 }
             }
+        }
+
+        val btnCancel = dialogView.findViewById<ImageButton>(R.id.btnCancel)
+        btnCancel.setOnClickListener {
+            bottomSheetDialog.dismiss()
         }
     }
 }
