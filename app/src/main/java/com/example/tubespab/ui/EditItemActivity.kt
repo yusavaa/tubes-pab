@@ -174,7 +174,10 @@ class EditItemActivity : AppCompatActivity() {
             item.observe(this) { itemData ->
                 itemData?.let {
                     // Populate the UI with the item data
-                    it.icon?.let { it1 -> ivIcon.setImageResource(it1.toInt()) }
+                    it.icon?.let {
+                        val iconRes = it.toIntOrNull() ?: R.drawable.stat_view
+                        ivIcon.setImageResource(iconRes)
+                    }
                     etItemName.setText(it.name)
                     etQuantity.setText(it.stock.toString())
                     tvDate.text = it.expiredDate

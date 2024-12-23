@@ -10,29 +10,46 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.SearchView
 import android.widget.Spinner
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tubespab.R
 import com.example.tubespab.adapter.ShoppingAdapter
+import com.example.tubespab.model.Item
 import com.example.tubespab.model.ShopItem
 import com.example.tubespab.repository.CartRepository
+import com.example.tubespab.repository.InventoryRepository
+import com.example.tubespab.repository.ItemRepository
 import com.example.tubespab.repository.ShopItemRepository
 import com.example.tubespab.util.AuthController
 import com.example.tubespab.viewmodel.CartViewModel
 import com.example.tubespab.viewmodel.CartViewModelFactory
+import com.example.tubespab.viewmodel.InventoryViewModel
+import com.example.tubespab.viewmodel.InventoryViewModelFactory
+import com.example.tubespab.viewmodel.ItemViewModel
+import com.example.tubespab.viewmodel.ItemViewModelFactory
 import com.example.tubespab.viewmodel.ShopItemViewModel
 import com.example.tubespab.viewmodel.ShopItemViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ShoppingFragment : Fragment() {
 
+    private val inventoryId = AuthController.getCurrentUserUid()
     private lateinit var recyclerView: RecyclerView
     private lateinit var shoppingAdapter: ShoppingAdapter
     private lateinit var cartViewModel: CartViewModel
     private lateinit var shopItemViewModel: ShopItemViewModel
     private val cartId = AuthController.getCurrentUserUid()
+
+    private val itemViewModel: ItemViewModel by viewModels {
+        ItemViewModelFactory(ItemRepository())
+    }
+    private val inventoryViewModel: InventoryViewModel by viewModels {
+        InventoryViewModelFactory(InventoryRepository())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,9 +99,22 @@ class ShoppingFragment : Fragment() {
             cartId?.let {
                 cartViewModel.getItemByCartId(it).observe(viewLifecycleOwner) { pair ->
                     val insideCartItems = pair?.second?.first ?: emptyList()
-
-                    insideCartItems.forEach { shopItem ->
-                        Log.d("ShoppingFragment", "Item in Inside Cart: ${shopItem.name}")
+                    insideCartItems.forEach { data ->
+                        val item = Item(
+                            data.name,
+                            "",
+                            data.quantity,
+                            data.unitType,
+                            "",
+                        )
+                        itemViewModel.addItem(item) { itemId ->
+                            if (inventoryId != null) {
+                                inventoryViewModel.addSegmentItem(inventoryId, "fridgeItem", itemId)
+                            }
+                        }
+                    }
+                    if (inventoryId != null) {
+                        cartViewModel.removeCartItemsWithTrueValue(inventoryId)
                     }
                 }
             }

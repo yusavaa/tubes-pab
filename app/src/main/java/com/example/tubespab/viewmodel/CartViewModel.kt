@@ -22,6 +22,10 @@ class CartViewModel(private val cartRepository: CartRepository) : ViewModel() {
         cartRepository.setCartItemToTrue(userId, itemId)
     }
 
+    fun removeCartItemsWithTrueValue(userId: String) {
+        cartRepository.removeCartItemsWithTrueValue(userId)
+    }
+
     fun addCartItem(cartId: String, shopItemId: String) {
         cartRepository.addCartItem(cartId, shopItemId)
     }

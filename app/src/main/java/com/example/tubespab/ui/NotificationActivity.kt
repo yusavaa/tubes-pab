@@ -43,18 +43,14 @@ class NotificationActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.notifBox)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Mengamati perubahan data dari ViewModel
         if (inventoryId != null) {
             itemViewModel.getExpiringItems(inventoryId, inventoryViewModel).observe(this) { expiringItems ->
                 if (expiringItems.isEmpty()) {
                     Toast.makeText(this, "No items expiring soon", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Map data item kedaluwarsa ke model notifikasi
                     val notifications = expiringItems.map {
                         Notification(it.name, "Expires in ${it.getDaysUntilExpiry()} days")
                     }
-
-                    // Menampilkan data dalam RecyclerView
                     notificationAdapter = NotificationAdapter(notifications)
                     recyclerView.adapter = notificationAdapter
                 }

@@ -1,7 +1,6 @@
 package com.example.tubespab.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.tubespab.model.chatbot.GroqResponse
 import com.example.tubespab.model.chatbot.Message
@@ -21,7 +20,7 @@ class ChatBotRepository {
     fun sendMessage(userMessage: String): MutableLiveData<String?> {
 
         val liveData = MutableLiveData<String?>()
-        val context = "Answer simply without being verbose"
+        val context = "Provide simple answers only to questions related to food waste, cooking, recipes, and similar topics. If the question falls outside these areas, politely and kindly decline in either English or Indonesian."
 
         Log.d("ChatBotRepository", "Sending user message: $userMessage")
 
