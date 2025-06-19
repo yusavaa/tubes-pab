@@ -66,6 +66,8 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this, result, Toast.LENGTH_LONG).show()
                     }
                 }
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
             }

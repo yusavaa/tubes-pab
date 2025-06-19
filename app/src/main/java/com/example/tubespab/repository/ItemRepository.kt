@@ -66,6 +66,24 @@ class ItemRepository {
         }
     }
 
+//    fun getItemForChatBot(inventoryId: String, inventoryViewModel: InventoryViewModel): LiveData<String> {
+//        val liveData = MutableLiveData<String>()
+//        val itemIdsLiveData = inventoryViewModel.getAllUserItemId(inventoryId)
+//        itemIdsLiveData.observeForever { itemIds ->
+//            myRef.addValueEventListener(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    val stringInfor = ""
+//                    for (itemSnapshot in snapshot.children)
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//
+//            })
+//        }
+//    }
+
     fun getExpiringItems(inventoryId: String, inventoryViewModel: InventoryViewModel): LiveData<List<Item>> {
         val liveData = MutableLiveData<List<Item>>()
 

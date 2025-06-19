@@ -61,7 +61,6 @@ class InventoryRepository {
         return liveData
     }
 
-
     fun getSegmentItems(inventoryId: String, segment: String): LiveData<Pair<List<String>, List<Item>>> {
         val liveData = MutableLiveData<Pair<List<String>, List<Item>>>()
 

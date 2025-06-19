@@ -40,7 +40,10 @@ class InventoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
         val currentItem = dataList[position]
-        currentItem.icon?.let { holder.ivIcon.setImageResource(it.toInt()) }
+        currentItem.icon?.let {
+            val iconRes = it.toIntOrNull() ?: R.drawable.stat_view
+            holder.ivIcon.setImageResource(iconRes)
+        }
         holder.tvItemName.text = currentItem.name
         holder.tvExpired.text = currentItem.expiredDate
         holder.tvStock.text = currentItem.stock.toString() + " " + currentItem.unitType.toString()

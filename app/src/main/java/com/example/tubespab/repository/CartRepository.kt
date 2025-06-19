@@ -91,6 +91,29 @@ class CartRepository {
         cartRef.child(userId).child("cartItem").child(itemId).setValue(true)
     }
 
+    fun removeCartItemsWithTrueValue(userId: String) {
+        val userCartRef = cartRef.child(userId).child("cartItem")
+
+        userCartRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (itemSnapshot in snapshot.children) {
+                    val itemId = itemSnapshot.key
+                    val itemValue = itemSnapshot.getValue(Boolean::class.java)
+
+                    if (itemValue == true) {
+                        itemId?.let {
+                            userCartRef.child(it).removeValue()
+                        }
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("removeCartItems", "Error removing items: ${error.message}")
+            }
+        })
+    }
+
+
     fun removeCartItem(cartId: String, shopItemId: String) {
         cartRef.child(cartId).child("cartItem").child(shopItemId).removeValue()
     }

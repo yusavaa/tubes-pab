@@ -20,17 +20,24 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tubespab.R
 import com.example.tubespab.model.Item
 import com.example.tubespab.repository.InventoryRepository
 import com.example.tubespab.repository.ItemRepository
+import com.example.tubespab.repository.MissionRepository
+import com.example.tubespab.repository.UserRepository
 import com.example.tubespab.util.AuthController
 import com.example.tubespab.viewmodel.InventoryViewModel
 import com.example.tubespab.viewmodel.InventoryViewModelFactory
 import com.example.tubespab.viewmodel.ItemViewModel
 import com.example.tubespab.viewmodel.ItemViewModelFactory
+import com.example.tubespab.viewmodel.MissionViewModel
+import com.example.tubespab.viewmodel.MissionViewModelFactory
+import com.example.tubespab.viewmodel.UserViewModel
+import com.example.tubespab.viewmodel.UserViewModelFactory
 import com.google.android.material.button.MaterialButtonToggleGroup
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -49,6 +56,12 @@ class AddItemActivity : AppCompatActivity() {
     }
     private val inventoryViewModel: InventoryViewModel by viewModels {
         InventoryViewModelFactory(InventoryRepository())
+    }
+    private val missionViewModel: MissionViewModel by viewModels {
+        MissionViewModelFactory(MissionRepository())
+    }
+    private val userViewModel: UserViewModel by viewModels {
+        UserViewModelFactory(UserRepository())
     }
 
     private var selectedIconRes: Int? = null
@@ -116,6 +129,39 @@ class AddItemActivity : AppCompatActivity() {
             itemViewModel.addItem(item) { itemId ->
                 if (inventoryId != null) {
                     inventoryViewModel.addSegmentItem(inventoryId, segment, itemId)
+                }
+            }
+            var progress: Int = 0
+            var missionPoint: Int = 0
+            var missionExperience: Int = 0
+            var point: Int = 0
+            var level: Int = 0
+            var experience: Int = 0
+            missionViewModel.getMissionById("mission1") { mission ->
+                if (mission != null) {
+                    progress = mission.progress
+                    missionPoint = mission.point
+                    missionExperience = mission.experience
+
+                    if (progress + 50 < 100) {
+                        missionViewModel.updateProgressMission("mission1", progress + 50)
+                    } else {
+                        missionViewModel.updateProgressMission("mission1", progress + 50)
+                        if (inventoryId != null) {
+                            userViewModel.getUserById(inventoryId) { user ->
+                                if (user != null) {
+                                    point = user.point + missionPoint
+                                    level = user.level
+                                    experience = user.experience
+                                }
+                                userViewModel.updateUserPoint(inventoryId, point)
+                                userViewModel.updateUserXP(inventoryId, missionExperience)
+                                if (experience >= 100) {
+                                    userViewModel.updateUserLevel(inventoryId, level+1)
+                                }
+                            }
+                        }
+                    }
                 }
             }
             finish()

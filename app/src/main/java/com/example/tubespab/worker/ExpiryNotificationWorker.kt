@@ -11,6 +11,7 @@ import com.example.tubespab.R
 import com.example.tubespab.model.Item
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,13 +39,27 @@ class ExpiryNotificationWorker(context: Context, workerParams: WorkerParameters)
                         for (itemKey in allItems) {
                             val item = itemSnapshot.child(itemKey).getValue(Item::class.java)
                             item?.let {
-                                val expiryDate = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).parse(it.expiredDate)
-                                val diffDays = ((expiryDate.time - Calendar.getInstance().timeInMillis) / (1000 * 60 * 60 * 24)).toInt()
+                                val expiredDateString = it.expiredDate
 
-                                if (diffDays in listOf(7, 3, 1)) { // H-7, H-3, H-1
-                                    sendNotification(it.name, diffDays)
+                                if (!expiredDateString.isNullOrEmpty()) { // Pastikan string tidak kosong atau null
+                                    try {
+                                        val expiryDate = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).parse(expiredDateString)
+
+                                        expiryDate?.let { date ->
+                                            val diffDays = ((date.time - Calendar.getInstance().timeInMillis) / (1000 * 60 * 60 * 24)).toInt()
+
+                                            if (diffDays in listOf(7, 3, 1)) { // H-7, H-3, H-1
+                                                sendNotification(it.name, diffDays)
+                                            }
+                                        }
+                                    } catch (e: ParseException) {
+                                        Log.e("ExpiryNotificationWorker", "Failed to parse date: $expiredDateString", e)
+                                    }
+                                } else {
+                                    Log.e("ExpiryNotificationWorker", "Expired date string is null or empty for item: ${it.name}")
                                 }
                             }
+
                         }
                     }
                 }
