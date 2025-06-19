@@ -18,4 +18,16 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun getUserById(userId: String, callback: (User?) -> Unit) {
         return userRepository.getUserById(userId, callback)
     }
+
+    fun updateUserPoint(userId: String, newValue: Int) {
+        userRepository.updateUserPoint(userId, newValue)
+    }
+
+    fun updateUserLevel(userId: String, newValue: Int) {
+        userRepository.updateUserLevel(userId, newValue)
+    }
+
+    fun updateUserXP(userId: String, newValue: Int) {
+        userRepository.updateUserXP(userId, newValue)
+    }
 }

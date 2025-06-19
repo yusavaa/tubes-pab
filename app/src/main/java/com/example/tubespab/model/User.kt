@@ -4,7 +4,7 @@ data class User(
     val email: String,
     val experience: Int = 0,
     val fullname: String,
-    val level: Int = 0,
+    val level: Int = 1,
     val password: String,
     val point: Int = 0,
     val username: String,

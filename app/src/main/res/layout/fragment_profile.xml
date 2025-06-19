@@ -87,6 +87,7 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginTop="15dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="@id/guideline4"
         app:layout_constraintTop_toBottomOf="@id/tvStat">
@@ -139,6 +140,7 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginTop="15dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="@id/guideline5"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tvStat">
@@ -191,6 +193,7 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginTop="15dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="@id/guideline4"
         app:layout_constraintTop_toBottomOf="@id/cvStreak">
@@ -243,6 +246,7 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginTop="15dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="@id/guideline5"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/cvPoint">

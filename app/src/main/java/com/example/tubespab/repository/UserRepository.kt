@@ -88,4 +88,16 @@ class UserRepository {
                 }
             })
     }
+
+    fun updateUserPoint(userId: String, newValue: Int) {
+        myRef.child(userId).child("point").setValue(newValue)
+    }
+
+    fun updateUserLevel(userId: String, newValue: Int) {
+        myRef.child(userId).child("level").setValue(newValue)
+    }
+
+    fun updateUserXP(userId: String, newValue: Int) {
+        myRef.child(userId).child("experience").setValue(newValue)
+    }
 }
